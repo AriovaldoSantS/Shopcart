@@ -9,6 +9,7 @@ function Products() {
     const [selectedCategory, setSelectedCategory] = useState(null)
     const [totalPrice, setTotalPrice] = useState(0)
     const [menuVisible, setMenuVisible] = useState(false)
+    const [cartItemStyle, setcartItemStyle] = useState(0)
 
     const navigate = useNavigate()
 
@@ -24,10 +25,13 @@ function Products() {
     }, [])
 
     useEffect(() => {
-
         const price = shop.reduce((total, item) => total + item.price * item.quantity, 0)
         setTotalPrice(price)
+
+        const itemCount = shop.reduce((total, item) => total + item.quantity, 0)
+        setcartItemStyle(itemCount)
     }, [shop])
+
 
     const addShop = (product) => {
         const existingItem = shop.find(item => item.id === product.id)
@@ -55,13 +59,16 @@ function Products() {
         toggleMenu()
     }
 
+    const toggleCartVisibility = () => {
+        setcartHidden(!cartHidden)
+    }
+
     const toggleMenu = () => {
         setMenuVisible(!menuVisible)
     }
 
     const handleCheckout = () => {
-
-        navigate('/checkout')
+        navigate(`/checkout?items=${encodeURIComponent(JSON.stringify(shop))}&total=${totalPrice}`)
     }
 
     return (
@@ -69,7 +76,12 @@ function Products() {
             <h3 id='logo'>LOGO</h3>
 
 
+
+
+
             <button id='menu' onClick={toggleMenu}>Categorias</button>
+            <button onClick={toggleCartVisibility}>Carrinho de Compras ({cartItemStyle})</button>
+
             <br /><br /><br />
             {menuVisible && (
                 <div className="menu">
