@@ -1,8 +1,0 @@
-function Header() {
-    return (
-        <h1>151SHOP</h1>
-    )
-
-}
-
-export default Header

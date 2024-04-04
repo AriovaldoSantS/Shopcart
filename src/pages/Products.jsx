@@ -61,15 +61,15 @@ function Products() {
 
     const handleCheckout = () => {
 
-        navigate('/shop')
+        navigate('/checkout')
     }
 
     return (
         <>
-            <h3>LOGO</h3>
+            <h3 id='logo'>LOGO</h3>
 
 
-            <button onClick={toggleMenu}>Categorias</button>
+            <button id='menu' onClick={toggleMenu}>Categorias</button>
             <br /><br /><br />
             {menuVisible && (
                 <div className="menu">
@@ -87,9 +87,9 @@ function Products() {
             )}
 
             <br /><br />
-            <div>
+            <div id='carrinho'>
                 <h2>Carrinho de compras</h2>
-                <ul>
+                <ul id='carrinhoDeCompras'>
                     {shop.map(item => (
                         <li key={item.id}>
                             {item.title} - ${item.price} x {item.quantity}
@@ -105,15 +105,19 @@ function Products() {
             <div>
                 <h4>Produtos</h4>
 
+
                 {data
                     .filter(product => !selectedCategory || product.category === selectedCategory)
                     .map(product => (
                         <div key={product.id}>
-                            <p>{product.title}</p>
-                            <button onClick={() => navigate(`/details/${product.id}`)}>
+
+                            <button id='sessao' onClick={() => navigate(`/details/${product.id}`)}>
+                                <p>{product.title}</p>
                                 <img width='20%' src={product.image} alt={product.title} />
+                                <p>Valor: R${product.price}</p>
                             </button>
-                            <p>Valor: R${product.price}</p>
+                            <br />
+
                             <button onClick={() => addShop(product)}>Adicionar</button>
                         </div>
                     ))}
