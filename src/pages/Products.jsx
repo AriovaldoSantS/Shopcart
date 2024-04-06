@@ -109,7 +109,7 @@ function Products() {
                         </li>
                     ))}
                 </ul>
-                <p>Total: ${totalPrice}</p>
+                <p>Total: ${totalPrice.toFixed(2)}</p>
                 <button onClick={handleCheckout}>Finalizar Compra</button>
             </div>
             <br /> <br />
